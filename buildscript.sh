@@ -10,7 +10,7 @@ dirmngr < /dev/null
 for i in $GPG_KEY_FINGERPRINTS
 do
     echo "Importing key $i"
-    gpg --keyserver keys.gnupg.net --recv $i
+    gpg --keyserver keys.gnupg.net --recv $i 2>&1
 done
 
 echo "Enabling builder repository $REPOSITORY_NAME"
@@ -24,5 +24,5 @@ echo "Setting 'packager' in /etc/makepkg.conf"
 echo "" | sudo tee --append /etc/makepkg.conf
 echo "PACKAGER=\"$PACKAGER\"" | sudo tee --append /etc/makepkg.conf
 
-sudo pacman -Syyu --noconfirm
-/usr/bin/makepkg -sfc --noconfirm --needed
+sudo pacman -Syyu --noconfirm --noprogress 2>&1
+/usr/bin/makepkg -sfc --noconfirm --needed --noprogress 2>&1
