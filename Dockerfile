@@ -5,10 +5,14 @@ MAINTAINER Maikel Wever <maikelwever@gmail.com>
 # Doesn't matter much on Docker Hub
 ADD mirrorlist /etc/pacman.d/mirrorlist
 
+RUN echo "[multilib]" >> /etc/pacman.conf \
+&& echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
 RUN pacman -Sy --noconfirm && \
     pacman -S archlinux-keyring --noconfirm && \
     pacman -Su --noconfirm
-RUN pacman -S --noconfirm base-devel sudo
+RUN pacman -S --needed --noconfirm base-devel sudo
+RUN echo -ne '\ny\ny\ny\ny\n' | sudo pacman --needed -S multilib-devel
 
 VOLUME /build
 WORKDIR /build

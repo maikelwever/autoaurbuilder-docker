@@ -24,5 +24,5 @@ echo "Setting 'packager' in /etc/makepkg.conf"
 echo "" | sudo tee --append /etc/makepkg.conf
 echo "PACKAGER=\"$PACKAGER\"" | sudo tee --append /etc/makepkg.conf
 
-sudo pacman -Syyu git subversion mercurial cvs $EXTRA_DEPS --noconfirm --noprogress 2>&1
+sudo pacman -Syyu git subversion mercurial cvs $EXTRA_DEPS --needed --noconfirm --noprogress 2>&1
 /usr/bin/makepkg -sfc --noconfirm --needed --noprogress 2>&1
